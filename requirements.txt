@@ -1,0 +1,2 @@
+psycopg2=2.8.6
+sc2reader=1.6.0
