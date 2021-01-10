@@ -1,6 +1,6 @@
 import sc2reader
 
-filepath = 'dataset/Replays/0000e057beefc9b1e9da959ed921b24b9f0a31c63fedb8d94a1db78b58cf92c5.SC2Replay'
+filepath = 'dataset/Replays/00a34632e38a7547e98bbcd50d9928b6c238ffc8db2dd9502955c07600baf713.SC2Replay'
 
 replay = sc2reader.load_replay(filepath)
 
