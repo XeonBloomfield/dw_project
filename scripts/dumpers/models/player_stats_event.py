@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from models.sqlalchemy_base import base
+from models.sqlalchemy_base import base, copy_fields
 
 
 class PlayerStatsEvent(base):
@@ -15,7 +15,6 @@ class PlayerStatsEvent(base):
     food_made = Column(Float)
     food_used = Column(Float)
     frame = Column(Integer)
-    load_context = Column(Integer)
     minerals_collection_rate = Column(Integer)
     minerals_current = Column(Integer)
     minerals_killed = Column(Integer)
@@ -66,7 +65,7 @@ class PlayerStatsEvent(base):
         "PlayerGame", back_populates="player_stats_events")
     to_copy = ["ff_minerals_lost_army", "ff_minerals_lost_economy", "ff_minerals_lost_technology",
                "ff_vespene_lost_army", "ff_vespene_lost_economy", "ff_vespene_lost_technology",
-               "food_made", "food_used", "frame", "load_context", "minerals_collection_rate",
+               "food_made", "food_used", "frame", "minerals_collection_rate",
                "minerals_current", "minerals_killed", "minerals_killed_army", "minerals_killed_economy",
                "minerals_killed_technology", "minerals_lost", "minerals_lost_army",
                "minerals_lost_economy", "minerals_lost_technology", "minerals_used_active_forces",
@@ -82,3 +81,6 @@ class PlayerStatsEvent(base):
                "vespene_used_current_technology", "vespene_used_in_progress",
                "vespene_used_in_progress_army", "vespene_used_in_progress_economy",
                "vespene_used_in_progress_technology", "workers_active_count"]
+
+    def load_raw_data(self, raw_object):
+        copy_fields(raw_object, self, self.to_copy)
