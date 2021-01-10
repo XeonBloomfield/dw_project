@@ -11,3 +11,5 @@ class GameEvent(base):
     player_game_id = Column(Integer, ForeignKey("PlayerGame.player_game_id"))
     player_game = relationship("PlayerGame", back_populates="game_events")
     to_copy = ["frame", "game_event_type"]
+    game_event_game_objects = relationship(
+        "GameEventGameObject", back_populates="game_events")

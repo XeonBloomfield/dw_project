@@ -26,3 +26,5 @@ class GameObject(base):
         "TrackerEventGameObject", back_populates="game_object")
     to_copy = ["finished_at", "started_at", "died_at", "is_army",
                "is_building", "is_worker", "minerals", "vespene", "supply"]
+    game_event_game_objects = relationship(
+        "GameEventGameObject", back_populates="game_objects")
