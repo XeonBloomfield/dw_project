@@ -16,6 +16,7 @@ class GameObject(BaseModel):
     name: str
     startedAt: int
     finishedAt: int
+    unitResValue: int
     diedAt: int
     isArmy: bool
     isBuilding: bool
@@ -26,12 +27,12 @@ class GameObject(BaseModel):
 GameObjects = List[GameObject]
 
 states = [
-    [GameObject(name='Krzysio', startedAt=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
-    GameObject(name='Zbysio', startedAt=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=30, y=10)],
-    [GameObject(name='Krzysio', startedAt=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
-    GameObject(name='Zbysio', startedAt=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=60, y=50)],
-    [GameObject(name='Krzysio', startedAt=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
-    GameObject(name='Zbysio', startedAt=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=90, y=100)]
+    [GameObject(name='Krzysio', startedAt=0, unitResValue=20, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
+    GameObject(name='Zbysio', startedAt=0, unitResValue=30,finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=30, y=10)],
+    [GameObject(name='Krzysio', startedAt=0, unitResValue=40, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
+    GameObject(name='Zbysio', startedAt=0, unitResValue=50, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=60, y=50)],
+    [GameObject(name='Krzysio', startedAt=0, unitResValue=200, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
+    GameObject(name='Zbysio', startedAt=0, unitResValue=0, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=90, y=100)]
 ]
 
 class Server:
@@ -50,8 +51,8 @@ class Server:
             curr_state = states[time]
             time+=1
         else:
-            curr_state = []
-        print(curr_state)
+            time = 0
+            curr_state = states[time]
         return curr_state
 
 

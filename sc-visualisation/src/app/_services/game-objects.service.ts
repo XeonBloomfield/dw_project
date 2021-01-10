@@ -26,7 +26,7 @@ export class GameObjectsService {
       tap(
 
       ),
-      delay(3000),
+      delay(1000),
       repeat()
     );
   }

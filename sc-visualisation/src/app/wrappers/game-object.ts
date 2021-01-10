@@ -1,4 +1,5 @@
 export interface GameObject {
+  unitResValue:number;
   name: string;
   startedAt: number;
   finishedAt: number;

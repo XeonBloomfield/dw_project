@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { BehaviorSubject } from 'rxjs';
+import { GameObject } from 'src/app/wrappers/game-object';
 
 @Component({
   selector: 'app-bar-chart',
@@ -7,11 +9,8 @@ import * as d3 from 'd3';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
-  // todo data to subject
-  private data = [
-    {"Framework": "Krzyś", "Score": "166443", "Released": "2014"},
-    {"Framework": "Zbys", "Score": "150793", "Released": "2013"}
-  ];
+
+  @Input() dataSubject: BehaviorSubject<GameObject[] | null> = new BehaviorSubject<GameObject[] | null>(null);
   private svg!: any;
   private margin = 50;
   private width = 750 - (this.margin * 2);
@@ -20,7 +19,10 @@ export class BarChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.createSvg();
-    this.drawBars(this.data);
+
+    this.dataSubject.subscribe( data => {
+      this.drawBars(data);
+    })
   }
 
   private createSvg(): void {
@@ -32,39 +34,43 @@ export class BarChartComponent implements OnInit {
     .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
   }
 
-  private drawBars(data: any[]): void {
+  private drawBars(data: GameObject[] | null): void {
     // Create the X-axis band scale
-    const x = d3.scaleBand()
-    .range([0, this.width])
-    .domain(data.map(d => d.Framework))
-    .padding(0.2);
+    if (data) {
+      const x = d3.scaleBand()
+      .range([0, this.width])
+      .domain(data.map(d => d.name))
+      .padding(0.2);
 
-    // Draw the X-axis on the DOM
-    this.svg.append("g")
-    .attr("transform", "translate(0," + this.height + ")")
-    .call(d3.axisBottom(x))
-    .selectAll("text")
-    .attr("transform", "translate(-10,0)rotate(-45)")
-    .style("text-anchor", "end");
+      // Draw the X-axis on the DOM
+      this.svg.append("g")
+      .attr("transform", "translate(0," + this.height + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
 
-    // Create the Y-axis band scale
-    const y = d3.scaleLinear()
-    .domain([0, 200000])
-    .range([this.height, 0]);
+      // Create the Y-axis band scale
+      const y = d3.scaleLinear()
+      .domain([0, 300])
+      .range([this.height, 0]);
 
-    // Draw the Y-axis on the DOM
-    this.svg.append("g")
-    .call(d3.axisLeft(y));
+      // Draw the Y-axis on the DOM
+      this.svg.append("g")
+      .call(d3.axisLeft(y));
 
-    // Create and fill the bars
-    this.svg.selectAll("bars")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("x", (d: { Framework: string; }) => x(d.Framework))
-    .attr("y", (d: { Score: d3.NumberValue; }) => y(d.Score))
-    .attr("width", x.bandwidth())
-    .attr("height", (d: { Score: d3.NumberValue; }) => this.height - y(d.Score))
-    .attr("fill", "#d04a35");
+      // Create and fill the bars
+      this.svg.selectAll("rect").remove()
+      this.svg.selectAll("bars")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("x", (d: { name: string; }) => x(d.name))
+      .attr("y", (d: { unitResValue: d3.NumberValue; }) => y(d.unitResValue))
+      .attr("width", x.bandwidth())
+      .attr("height", (d: { unitResValue: d3.NumberValue; }) => this.height - y(d.unitResValue))
+      .attr("fill", "#d04a35");
+
+    }
   }
 }
