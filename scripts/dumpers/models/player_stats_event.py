@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from sqlalchemy_base import base
+from models.sqlalchemy_base import base
 
 
 class PlayerStatsEvent(base):

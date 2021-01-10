@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
-from sqlalchemy_base import base
-
+from models.sqlalchemy_base import base
 
 
 class Replay(base):

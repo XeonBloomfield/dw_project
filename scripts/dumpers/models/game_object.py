@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy_base import base
+from models.sqlalchemy_base import base
 
 
 class GameObject(base):
