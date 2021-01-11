@@ -24,6 +24,8 @@ class GameObject(base):
         "GameObject", backref=backref("killed_by", remote_side=[game_object_id]), post_update=True)
     tracker_event_game_objects = relationship(
         "TrackerEventGameObject", back_populates="game_object")
+    player_game_id = Column(Integer, ForeignKey("PlayerGame.player_game_id"))
+    player_game = relationship("PlayerGame", back_populates="game_objects")
     to_copy = ["name", "finished_at", "started_at", "died_at", "is_army",
                "is_building", "is_worker", "minerals", "vespene", "supply"]
     game_event_game_objects = relationship(

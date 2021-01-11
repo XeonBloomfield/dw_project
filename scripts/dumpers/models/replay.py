@@ -26,6 +26,10 @@ class Replay(base):
     tournament = relationship("Tournament", back_populates="replays")
     game_objects = relationship("GameObject", back_populates="replay")
     player_games = relationship("PlayerGame", back_populates="replay")
+    tracker_events = relationship("TrackerEvent", back_populates="replay")
+    game_events = relationship("GameEvent", back_populates="replay")
+    player_stats_events = relationship(
+        "PlayerStatsEvent", back_populates="replay")
     to_copy = ["category", "battle_net", "competitive", "cooperative", "date", "unix_timestamp",
                "game_type", "expansion", "frames", "game_fps", "lenght", "map_hash", "map_name",
                "region", "speed", "filehash"]

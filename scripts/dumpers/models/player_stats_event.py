@@ -61,6 +61,8 @@ class PlayerStatsEvent(base):
     vespene_used_in_progress_technology = Column(Integer)
     workers_active_count = Column(Integer)
     player_game_id = Column(Integer, ForeignKey("PlayerGame.player_game_id"))
+    replay_id = Column(Integer, ForeignKey("Replay.replay_id"))
+    replay = relationship("Replay", back_populates="player_stats_events")
     player_game = relationship(
         "PlayerGame", back_populates="player_stats_events")
     to_copy = ["ff_minerals_lost_army", "ff_minerals_lost_economy", "ff_minerals_lost_technology",

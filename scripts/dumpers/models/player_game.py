@@ -17,10 +17,11 @@ class PlayerGame(base):
     player = relationship("Player", back_populates="player_games")
     replay_id = Column(Integer, ForeignKey("Replay.replay_id"))
     replay = relationship("Replay", back_populates="player_games")
-    tracker_events = relationship("TrackerEvent", back_populates="player_game")
+    # tracker_events = relationship("TrackerEvent", back_populates="player_game")
     game_events = relationship("GameEvent", back_populates="player_game")
     player_stats_events = relationship(
         "PlayerStatsEvent", back_populates="player_game")
+    game_objects = relationship("GameObject", back_populates="player_game")
     to_copy = ["result", "pick_race", "team_id", "is_human",
                "commander_level", "combined_race_levels", "color"]
 
