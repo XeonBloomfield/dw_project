@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
-from models.sqlalchemy_base import base
+from models.sqlalchemy_base import base, copy_fields
 
 
 class Player(base):
@@ -10,3 +10,6 @@ class Player(base):
     toon_id = Column(Integer)
     player_games = relationship("PlayerGame", back_populates="player")
     to_copy = ["url", "toon_id"]
+
+    def load_raw_data(self, raw_object):
+        copy_fields(raw_object, self, self.to_copy)

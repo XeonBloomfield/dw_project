@@ -9,4 +9,4 @@ class Tournament(base):
     name = Column(String)
     year = Column(Integer)
     replays = relationship("Replay", back_populates="tournament")
-    to_copy = ['name', 'name']
+    to_copy = ['name', 'year']
