@@ -1,0 +1,29 @@
+.title{
+  margin-top: 2%;
+  text-align: center;
+}
+
+
+table {
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2%;
+  width: 100%;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color:  	 	#F5F5F5;
+}

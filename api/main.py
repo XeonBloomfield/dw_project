@@ -24,12 +24,36 @@ class GameObject(BaseModel):
     x: int
     y: int
 
+
+class GameRow(BaseModel):
+    title: str
+    startedAt: int
+    players: str
+    result: Optional[str] = ''
+
+
 GameObjects = List[GameObject]
+GameRows = List[GameRow]
 
 states = [
     [GameObject(name='Krzysio', startedAt=0, unitResValue=20, finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=10, y=10),
     GameObject(name='Zbysio', startedAt=0, unitResValue=30,finishedAt=0, diedAt=10, isArmy=True, isBuilding=False, isWorker=False, x=30, y=10)]
 ]
+
+games = {
+    'active': [
+        GameRow(title='Swarm vs Aliens', startedAt=0, players="Maciek vs. Jacuś"),
+        GameRow(title='Swarm vs Humans', startedAt=41, players="Maciek vs. Marek"),
+        GameRow(title='Humans vs Aliens', startedAt=100, players="Marek vs. Seba"),
+        GameRow(title='Humans vs Humans', startedAt=130, players="Seba vs. Krzysiu"),
+    ],
+    'finished': [
+        GameRow(title='Aliens vs Aliens', startedAt=0, players="Maciek vs. Jacuś", result='Maciek won'),
+        GameRow(title='Humans vs Aliens', startedAt=41, players="Maciek vs. Marek", result='Maciek won'),
+        GameRow(title='Aliens vs Other Aliens', startedAt=410, players="Marek vs. Seba", result='Seba won'),
+        GameRow(title='Godzilla vs Hedora', startedAt=4330, players="Seba vs. Krzysiu", result='Seba won'),
+    ]
+}
 
 class Server:
     app = FastAPI()
@@ -49,6 +73,14 @@ class Server:
         print(curr_state)
         time += 1
         return curr_state
+
+    @app.get("/game/active", response_model=GameRows)
+    def read_root():
+        return games['active']
+
+    @app.get("/game/finished", response_model=GameRows)
+    def read_root():
+        return games['finished']
 
 
 if __name__ == "__main__":
