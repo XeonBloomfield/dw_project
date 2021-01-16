@@ -25,7 +25,6 @@ export class MapVisualisationComponent implements AfterViewInit  {
     this.ctx = this.canvas.nativeElement.getContext('2d');
     this.ngZone.runOutsideAngular(() => this.animate());
     this.gameObjectSerVice.pollGO().subscribe(res => {
-      console.log(res)
       this.gameSubject.next(res);
     }, err => {
       console.log(err)
