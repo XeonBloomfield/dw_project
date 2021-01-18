@@ -16,6 +16,10 @@ import { MatTableModule } from '@angular/material/table';
 import { FinishedComponent } from './finished/finished.component';
 import { ActiveComponent } from './active/active.component';
 import { HeaderComponent } from './header/header.component';
+import { HeatmapComponent } from './gui-elements/charts/heatmap/heatmap.component';
+import { NgxHeatmapComponent } from './gui-elements/charts/ngx-heatmap/ngx-heatmap.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 
 
@@ -29,7 +33,9 @@ import { HeaderComponent } from './header/header.component';
     HomeComponent,
     FinishedComponent,
     ActiveComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeatmapComponent,
+    NgxHeatmapComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +44,7 @@ import { HeaderComponent } from './header/header.component';
     MatToolbarModule,
     FlexLayoutModule,
     DiagramModule,
+    NgxChartsModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],
