@@ -124,6 +124,8 @@ if __name__ == "__main__":
             game_event_db.load_raw_data(game_event)
             player_game = next(
                 (x for x in player_games if x.player.toon_id == game_event.player.toon_id), None)
+            if player_game is None:
+                continue
             game_event_db.player_game = player_game
             game_event_db.replay = replay_db
             if hasattr(game_event, "objects"):
@@ -156,4 +158,4 @@ if __name__ == "__main__":
         session.add_all(tracker_event_game_objects)
         session.add_all(game_event_game_objects)
         session.commit()
-        print("Replay " + filename_split[2] + " loaded")
+        print("Replay loaded")
