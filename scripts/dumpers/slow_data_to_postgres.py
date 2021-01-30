@@ -12,6 +12,7 @@ from models.tournament import Tournament
 from models.tracker_event_game_object import TrackerEventGameObject
 from models.tracker_event import TrackerEvent
 import time
+import argparse
 
 
 def copy_fields(source, desitnation, fields):
@@ -21,12 +22,19 @@ def copy_fields(source, desitnation, fields):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dir",
+                        default='dataset/Replays',
+                        type=str,
+                        help="directory of replays")
+    args = parser.parse_args()
+    print(args.dir)
     Session = sessionmaker(db)
     session = Session()
     base.metadata.create_all(db)
 
     # Load replays
-    replays_raw = sc2reader.load_replays("dataset/Replays")
+    replays_raw = sc2reader.load_replays(args.dir)
     tournaments = []
     for replay in replays_raw:
         replays = []

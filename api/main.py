@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from typing import List
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+from access.speed_layer_game_stats import get_active_games
+
 
 origins = [
     "http://localhost",

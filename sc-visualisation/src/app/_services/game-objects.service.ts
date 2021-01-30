@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { GameObject } from '../wrappers/game-object';
 import { of } from 'rxjs';
 import { delay, tap, mergeMap, repeat } from 'rxjs/operators';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { PlayerStat } from '../wrappers/player_stat';
 
 
 @Injectable({
@@ -16,13 +18,13 @@ export class GameObjectsService {
 
   }
 
-  getChildren(): Observable<GameObject[]>{
-    return this.http.get<GameObject[]>(this.baseUrl + 'currState');
+  getActiveStats(replayId: Number, frame: Number): Observable<PlayerStat[]>{
+    return this.http.get<PlayerStat[]>(this.baseUrl + `currState/${replayId}/${frame}`);
   }
 
-  pollGO() {
+  pollGO(replayId: Number, frame: Number) {
     return of({}).pipe(
-      mergeMap(_ => this.getChildren()),
+      mergeMap(_ => this.getActiveStats(replayId, frame)),
       tap(
 
       ),

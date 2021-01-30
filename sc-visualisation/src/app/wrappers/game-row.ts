@@ -1,6 +1,7 @@
 export interface GameRow {
-  title:string;
-  startedAt: string;
-  players: string;
-  result: string;
+  date:Date;
+  game_type: string;
+  map_name: string;
+  replay_id: string;
+  players: string[];
 }

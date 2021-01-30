@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as d3 from "d3";
 import { BehaviorSubject } from 'rxjs';
 import { GameObject } from 'src/app/wrappers/game-object';
+import { PlayerStat } from 'src/app/wrappers/player_stat';
 
 interface Dictionary<T> {
   [Key: string]: T;
@@ -15,7 +16,7 @@ interface Dictionary<T> {
 })
 export class LineChartComponent implements OnInit {
   @ViewChild("chart", { static: true }) protected chartContainer!: ElementRef;
-  @Input() dataSubject: BehaviorSubject<GameObject[] | null> = new BehaviorSubject<GameObject[] | null>(null);
+  @Input() dataSubject: BehaviorSubject<PlayerStat[] | null> = new BehaviorSubject<PlayerStat[] | null>(null);
   private svg!: any;
   private margin = 50;
   private width = 750 - (this.margin * 2);
@@ -45,7 +46,7 @@ export class LineChartComponent implements OnInit {
     .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
   }
 
-  private drawBars(data: GameObject[] | null): void {
+  private drawBars(data: PlayerStat[] | null): void {
     // Create the X-axis band scale
     if (data) {
       this.svg.selectAll("g").remove()
@@ -72,15 +73,15 @@ export class LineChartComponent implements OnInit {
       this.svg.selectAll("path").remove()
 
       for(var i = 0; i < data.length; i++ ) {
-        if (data[i]['name'] in this.currentDict){
-          this.currentDict[data[i]['name']].push({x: this.currentDict[data[i]['name']].length, y: data[i].unitResValue});
+        if (data[i]['player_game_id'] in this.currentDict){
+          this.currentDict[data[i]['player_game_id']].push({x: this.currentDict[data[i]['player_game_id']].length, y: data[i].food_made});
         }
         else {
-          this.player2Colour[data[i]['name']] = this.colours[Object.keys(this.currentDict).length];
-          this.currentDict[data[i]['name']] = [{x: 0, y: data[i].unitResValue}]
+          this.player2Colour[data[i]['player_game_id']] = this.colours[Object.keys(this.currentDict).length];
+          this.currentDict[data[i]['player_game_id']] = [{x: 0, y: data[i].food_made}]
         }
-        this.datalen = Math.max(this.datalen, this.currentDict[data[i]['name']].length)
-        this.datahaj = Math.max(this.datahaj, data[i].unitResValue)
+        this.datalen = Math.max(this.datalen, this.currentDict[data[i]['player_game_id']].length)
+        this.datahaj = Math.max(this.datahaj, data[i].food_made)
       }
       this.svg.selectAll("path").remove()
       for (let player in this.currentDict){
