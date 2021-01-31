@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 import { PlayerStat } from 'src/app/wrappers/player_stat';
 
 
-
+interface Dictionary<T> {
+  [Key: string]: T;
+}
 
 
 @Component({
@@ -43,22 +45,28 @@ export class NgxHorizonBarComponent implements OnInit {
   parseToUseful(res: PlayerStat[]){
     this.displayed = []
     // TODO WYJEBAĆ ABSTAKCJĘ POZIOM WYZEJ
+    let acc: number[] = [0, 0, 0]
     res.forEach( ev => {
       if (ev.pid == this.pid) {
-        this.displayed.push({
-          "name": 'Minerals used in economy',
-          "value": ev.minerals_used_current_economy
-        })
-        this.displayed.push({
-          "name": 'Minerals used in technology',
-          "value": ev.minerals_used_current_technology
-        })
-        this.displayed.push({
-          "name": 'Minerals used in army',
-          "value": ev.minerals_used_current_army
-        })
+        acc[0] += ev.minerals_used_current_economy;
+        acc[1] += ev.minerals_used_current_technology;
+        acc[2] += ev.minerals_used_current_army;
       }
-    } )
+    })
+    this.displayed.push({
+      "name": 'Minerals used in economy',
+      "value": acc[0]
+    })
+    this.displayed.push({
+      "name": 'Minerals used in technology',
+      "value": acc[1]
+    })
+    this.displayed.push({
+      "name": 'Minerals used in army',
+      "value": acc[2]
+    })
+    console.log('xD')
+    console.log(this.displayed)
     return this.displayed
   }
 
