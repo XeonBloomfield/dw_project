@@ -19,6 +19,10 @@ import { HeaderComponent } from './header/header.component';
 import { HeatmapComponent } from './gui-elements/charts/heatmap/heatmap.component';
 import { NgxHeatmapComponent } from './gui-elements/charts/ngx-heatmap/ngx-heatmap.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxHorizonBarComponent } from './gui-elements/charts/ngx-horizon-bar/ngx-horizon-bar.component';
+import { NgxNormalizedAreaComponent } from './gui-elements/charts/ngx-normalized-area/ngx-normalized-area.component';
+import { NgxAdvancedPieChartComponent } from './gui-elements/charts/ngx-advanced-pie-chart/ngx-advanced-pie-chart.component';
 
 
 
@@ -35,7 +39,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ActiveComponent,
     HeaderComponent,
     HeatmapComponent,
-    NgxHeatmapComponent
+    NgxHeatmapComponent,
+    NgxHorizonBarComponent,
+    NgxNormalizedAreaComponent,
+    NgxAdvancedPieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     DiagramModule,
     NgxChartsModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

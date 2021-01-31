@@ -17,15 +17,16 @@ interface Dictionary<T> {
 export class LineChartComponent implements OnInit {
   @ViewChild("chart", { static: true }) protected chartContainer!: ElementRef;
   @Input() dataSubject: BehaviorSubject<PlayerStat[] | null> = new BehaviorSubject<PlayerStat[] | null>(null);
+  @Input() title: string = '';
   private svg!: any;
   private margin = 50;
-  private width = 750 - (this.margin * 2);
-  private height = 400 - (this.margin * 2);
+  private width = 350 - (this.margin * 2);
+  private height = 200 - (this.margin * 2);
   private currentDict: Dictionary<[Dictionary<number>]> = {};
   private colours = ["red", "blue", "orange", "purple"]
   private player2Colour: Dictionary<string> = {};
   private datalen = 0;
-  private datahaj = 200;
+  private datahaj = 20;
 
   constructor() { }
 

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GameObject } from '../wrappers/game-object';
 import { of } from 'rxjs';
-import { delay, tap, mergeMap, repeat } from 'rxjs/operators';
+import { delay, tap, mergeMap, repeat, concatMap } from 'rxjs/operators';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { PlayerStat } from '../wrappers/player_stat';
 
@@ -22,14 +22,9 @@ export class GameObjectsService {
     return this.http.get<PlayerStat[]>(this.baseUrl + `currState/${replayId}/${frame}`);
   }
 
-  pollGO(replayId: Number, frame: Number) {
+  singleReq(replayId: Number, frame: Number): Observable<PlayerStat[]> {
     return of({}).pipe(
-      mergeMap(_ => this.getActiveStats(replayId, frame)),
-      tap(
-
-      ),
-      delay(1000),
-      repeat()
+      concatMap(_ => this.getActiveStats(replayId, frame))
     );
   }
 

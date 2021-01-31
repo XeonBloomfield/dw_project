@@ -1,2 +1,22 @@
-<app-line-chart [dataSubject]=gameSubject></app-line-chart>
-TODO Wincyj chartow
+
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <app-line-chart [dataSubject]=gameSubject title="Food distribution in time per player"></app-line-chart>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <ng-container *ngFor="let pid of pids" >
+        <h2>Resource distribution for player {{pid}}</h2>
+        <app-ngx-horizon-bar [dataSubject]=gameSubject title="Food distribution in time per player" [pid]=pid></app-ngx-horizon-bar>
+    </ng-container>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-ngx-normalized-area [dataSubject]=gameSubject></app-ngx-normalized-area>
+    </div>
+  </div>
+</div>
