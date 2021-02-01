@@ -33,6 +33,7 @@ def get_active_games():
             replays[row.Replay_replay_id].units.append({"probe": 7})
             replays[row.Replay_replay_id].structures.append(
                 {"assimilator": 2, "cyberneticscore": 1, "nexus": 1, "pylon": 3})
+            replays[row.Replay_replay_id].favourite_unit.append('stalker')
         else:
             replays[row.Replay_replay_id] = ReplayWrapper(date=row.Replay_date, players=[row.Player_url],
             game_type=row.Replay_game_type, map_name=row.Replay_map_name, replay_id=row.Replay_replay_id)
@@ -52,6 +53,7 @@ def get_active_games():
                 {"autoturret": 1, "barracks": 2, "barrackstechlab": 1, "engineeringbay": 2, "factory": 1,
                  "factorytechlab": 1, "orbitalcommand": 2, "refinery": 4, "starport": 1, "starportreactor": 1,
                  "supplydepot": 7, "techlab": 1})
+            replays[row.Replay_replay_id].favourite_unit.append('widowmine')
 
             replays[row.Replay_replay_id].structure_heatmap = open('structures.txt', mode='r').read()
             replays[row.Replay_replay_id].kills_heatmap = open('kills.txt', mode='r').read()
