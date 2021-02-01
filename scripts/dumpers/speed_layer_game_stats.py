@@ -27,9 +27,34 @@ def get_active_games():
     for row in result:
         if row.Replay_replay_id in replays:
             replays[row.Replay_replay_id].players.append(row.Player_url)
+
+            replays[row.Replay_replay_id].apm.append(47)
+            replays[row.Replay_replay_id].spm.append(8.25)
+            replays[row.Replay_replay_id].units.append({"probe": 7})
+            replays[row.Replay_replay_id].structures.append(
+                {"assimilator": 2, "cyberneticscore": 1, "nexus": 1, "pylon": 3})
         else:
             replays[row.Replay_replay_id] = ReplayWrapper(date=row.Replay_date, players=[row.Player_url],
             game_type=row.Replay_game_type, map_name=row.Replay_map_name, replay_id=row.Replay_replay_id)
+
+            replays[row.Replay_replay_id].apm = list()
+            replays[row.Replay_replay_id].spm = list()
+            replays[row.Replay_replay_id].units = list()
+            replays[row.Replay_replay_id].structures = list()
+            replays[row.Replay_replay_id].favourite_unit = list()
+
+            replays[row.Replay_replay_id].apm.append(177)
+            replays[row.Replay_replay_id].spm.append(19.15)
+            replays[row.Replay_replay_id].units.append(
+                {"cyclone": 1, "marauder": 1, "marine": 10, "medivac": 1, "mule": 1, "raven": 1, "scv": 54,
+                 "siegetank": 1, "widowmine": 2})
+            replays[row.Replay_replay_id].structures.append(
+                {"autoturret": 1, "barracks": 2, "barrackstechlab": 1, "engineeringbay": 2, "factory": 1,
+                 "factorytechlab": 1, "orbitalcommand": 2, "refinery": 4, "starport": 1, "starportreactor": 1,
+                 "supplydepot": 7, "techlab": 1})
+
+            replays[row.Replay_replay_id].structure_heatmap = open('structures.txt', mode='r').read()
+            replays[row.Replay_replay_id].kills_heatmap = open('kills.txt', mode='r').read()
     out = []
     for key in replays:
         replays[key].players = list(set(replays[key].players))
